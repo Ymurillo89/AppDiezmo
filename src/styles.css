@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url("src/assets/img/SoundWave.svg");
+     /* Full height */
+     height: 100%; 
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: repeat;
+     background-size: cover;
+}
