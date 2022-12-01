@@ -7,21 +7,18 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { RegisterTitheComponent } from './components/register-tithe/register-tithe.component';
 import { ReportComponent } from './components/report/report.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    RegisterTitheComponent,
-    ReportComponent
+    NavComponent,    
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(
-    [{ path: 'Diezmo',component: RegisterTitheComponent},
-     { path: 'Reporte',component: ReportComponent},
-    ])
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
