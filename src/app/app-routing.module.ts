@@ -7,7 +7,6 @@ import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [{path: '',component:LoginComponent},
   { path: 'nav-bar',component: NavComponent, children:[{path:'Diezmo',component:RegisterTitheComponent},{path:'Reporte',component:ReportComponent}],},
-
 ];
 
 @NgModule({
