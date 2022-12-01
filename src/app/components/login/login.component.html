@@ -29,22 +29,22 @@
                 </p>
               </div>
             </div>
-            <form action="#" class="signin-form">
+            <form  class="signin-form">
               <div class="form-group mb-3">
-                <label class="label" for="name">Username</label>
+                <label class="label" for="name">Usuario</label>
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Username"
+                  placeholder="Usuario"
                   required
                 />
               </div>
               <div class="form-group mb-3">
-                <label class="label" for="password">Password</label>
+                <label class="label" for="password">Contraseña</label>
                 <input
                   type="password"
                   class="form-control"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   required
                 />
               </div>
@@ -52,8 +52,9 @@
                 <button
                   type="submit"
                   class="form-control btn btn-primary rounded submit px-3"
+                  (click)="login()"
                 >
-                  Sign In
+                  Ingresar
                 </button>
               </div>
              <!--  <div class="form-group d-md-flex">
