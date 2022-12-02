@@ -8,6 +8,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { RegisterTitheComponent } from './components/register-tithe/register-tithe.component';
 import { ReportComponent } from './components/report/report.component';
 import { LoginComponent } from './components/login/login.component';
+import { HttpClientModule } from  '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
