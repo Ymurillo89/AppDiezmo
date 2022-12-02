@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup ;
   alert:boolean=false;
+  alert2:boolean=false;
 
   constructor(private router: Router,
               private loginService:LoginService) 
@@ -46,6 +47,8 @@ export class LoginComponent implements OnInit {
         }else{
           this.alert=true;
         }
+      },error=>{
+        this.alert2=true;
       })  
     }
     
