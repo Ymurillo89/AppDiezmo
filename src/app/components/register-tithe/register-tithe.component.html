@@ -27,20 +27,39 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <form class="row">                  
+                <form [formGroup]="formNewTithe" class="row">                  
 
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 text-center">
                     <label >Nombre</label>
-                    <input class=" form-control " type="text" >
-                  </div>
+                      <ng-autocomplete 
+                        [data]="dataBrother"
+                        [searchKeyword]="keyword"
+                        placeholder="Seleccione un hermano"
+                        (selected)='selectBrother($event)'
+                        
+                        [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate">      
+                                               
+                      </ng-autocomplete>
+                      
+                      <ng-template #itemTemplate let-dataBrother>
+                      <a [innerHTML]="dataBrother.fullName"></a>
+                      </ng-template>
+                      
+                      <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                      </div>
+                
 
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 text-center">
                     <label >Cantidad</label>
-                    <input class="form-control " type="number">
+                    <input class="form-control " formControlName="Quantity" type="number">
+
                   </div>                                   
 
                   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center mt-2">
-                    <button class="btn" style="background-color: #e3b04b; color: white">Guardar</button>
+                    <button class="btn" style="background-color: #e3b04b; color: white" (click)="setTithe()">Guardar</button>
                   </div>
 
                 </form>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { GetBrother } from 'src/app/models/interfaces';
+import { AlertService } from 'src/app/services/alert.service';
 import { RegisterTitheService } from 'src/app/services/register-tithe.service';
 
 @Component({
@@ -10,22 +13,46 @@ import { RegisterTitheService } from 'src/app/services/register-tithe.service';
 export class RegisterTitheComponent implements OnInit {
   
   formNewBrother: FormGroup;
-  dataBrother:[]=[];
-  keyword='';
-  constructor(private registerBrotherService :RegisterTitheService) {
+  formNewTithe:FormGroup;
+
+  dataBrother:GetBrother[]=[];
+  keyword='fullName';
+
+ 
+  constructor(private registerBrotherService :RegisterTitheService,
+              private alert:AlertService
+    
+    ) {
     this.formNewBrother = new FormGroup({
       identification:new FormControl("",[Validators.required]),
       name:new FormControl("",[Validators.required]),
       lastName:new FormControl("",[Validators.required]),
 
+    }),
+    this.formNewTithe = new FormGroup({
+      idRows:new FormControl("",[Validators.required]),
+      Quantity:new FormControl("",[Validators.required]),     
+
     })
    }
 
   ngOnInit(): void {
+    this.getBrother()
+
   }
+
+  //Traer información del hermano
+  getBrother(){
+    this.registerBrotherService.getBrother().subscribe(response=>{
+      this.dataBrother = response;
+      //console.log(this.dataBrother)
+    })
+  }
+
+
   //Registrar hermano
   setBrother(){
-    debugger
+    //debugger
     let dataBrother=[];
 
     dataBrother.push({
@@ -35,12 +62,34 @@ export class RegisterTitheComponent implements OnInit {
     })
 
     if(this.formNewBrother.valid){
-      this.registerBrotherService.setBrother(dataBrother).subscribe(response=>{})
+      this.registerBrotherService.setBrother(dataBrother).subscribe(response=>{
+
+        if(response==1){
+
+          this.alert.ShowSwalBasicSuccess("Éxito","Registro realizado correctamente") 
+          this.formNewBrother.reset();
+        }else{
+
+          this.alert.ShowSwalBasicError("Error al guardar","No se ha podido guardar la información")       
+        } 
+
+      })
     }
 
   }
 
-  selectEvent(event:Event){
+  //Asignamos el valor del autocomplete al formulario
+  selectBrother(event:GetBrother){   
+    this.formNewTithe.controls['idRows'].setValue(event.idRows)    
+  }
 
+  //Guardamos la información del Diezmo
+  setTithe(){
+
+    if(this.formNewTithe.valid){      
+      
+    }
+
+    
   }
 }
