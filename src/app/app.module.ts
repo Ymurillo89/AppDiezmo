@@ -9,22 +9,28 @@ import { RegisterTitheComponent } from './components/register-tithe/register-tit
 import { ReportComponent } from './components/report/report.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from  '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import {  ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,    
-    LoginComponent, HomeComponent
+    LoginComponent, 
+    HomeComponent,
+    RegisterTitheComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ReactiveFormsModule,    
+    HttpClientModule,
+    AutocompleteLibModule,
+    CommonModule ,
     
   ],
   providers: [],
