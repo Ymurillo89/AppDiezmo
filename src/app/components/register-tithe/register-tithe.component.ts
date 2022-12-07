@@ -19,6 +19,7 @@ export class RegisterTitheComponent implements OnInit {
   dataBrother:GetBrother[]=[];
   dataTithe:GetTithe[]=[];
   keyword='fullName';
+  f=0;
 
  
   constructor(private registerBrotherService :RegisterTitheService,
@@ -77,6 +78,7 @@ export class RegisterTitheComponent implements OnInit {
 
           this.alert.ShowSwalBasicSuccess("Éxito","Registro realizado correctamente") 
           this.formNewBrother.reset();
+          this.getTithe();
         }else{
 
           this.alert.ShowSwalBasicError("Error al guardar","No se ha podido guardar la información")       
@@ -103,6 +105,7 @@ export class RegisterTitheComponent implements OnInit {
         if(response==1){
           this.alert.ShowSwalBasicSuccess("Éxito","Registro realizado correctamente") 
           this.formNewTithe.reset();
+          this.getTithe();
         }else{
           this.alert.ShowSwalBasicError("Error al guardar","No se ha podido guardar la información")       
         }

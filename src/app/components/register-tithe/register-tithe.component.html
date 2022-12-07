@@ -142,28 +142,51 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-center">Diezmos</h2>
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-          <div class="accordion-item" *ngFor="let brother of dataTithe">
+        <div class="accordion accordion-flush" id="accordionFlushExample" >
+          <div class="accordion-item" *ngFor="let brother of dataTithe  let i = index">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
-                class="accordion-button collapsed bg-info text-white"
+                class="accordion-button collapsed "
+                style="background-color: #e3b04b; color: white"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseOne"
-                aria-expanded="false"
-                aria-controls="flush-collapseOne"
-                
+                [attr.data-bs-target]="'#brother' + i" 
+                aria-expanded="false" 
+                [attr.aria-controls]="'brother' + i"                
               >
               {{brother.fullName}}({{brother.identification}})
               </button>
             </h2>
-            <div
-              id="flush-collapseOne"
-              class="accordion-collapse collapse"
-              aria-labelledby="flush-headingOne"
-              data-bs-parent="#accordionFlushExample"
-            >
-              <div class="accordion-body"></div>
+            <div  [id]="'brother'+i" class="accordion-collapse collapse"  [attr.aria-labelledby]="'brother'+ i" data-bs-parent="#accordionExample" >
+              <div class="accordion-body">
+                <div class="alert alert-warning" role="alert" *ngIf="brother.getTitheLin.length == 0">
+                 No se han realizado registros
+                </div>
+                <div class="table-responsive" *ngIf="brother.getTitheLin.length > 0">
+                  <table class="table table-striped">
+                    <thead class=" text-center"   style="background-color: #e3b04b; color: white">
+                      <tr>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha</th>                        
+                      </tr>
+                    </thead>
+                    <tbody class="text-center ">
+                      <tr *ngFor="let dataBrother of brother.getTitheLin | paginate: { itemsPerPage: 6, currentPage: f, id: 'f1' }; let j= index">                       
+                        <td>{{dataBrother.tithe}}</td>
+                        <td>{{dataBrother.dateTithe}}</td>
+                      </tr>
+                    </tbody>
+                    <footer>
+                      <p><strong>Sum:0</strong></p>
+                    </footer>
+                  </table>
+                  <div class="text-right">
+                    <pagination-controls previousLabel="" nextLabel="" (pageChange)="f = $event" id="f1">
+                    </pagination-controls>
+                  </div> 
+                </div>
+
+              </div>
             </div>
           </div>
         </div>

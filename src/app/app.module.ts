@@ -13,6 +13,8 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { CommonModule } from '@angular/common';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     AutocompleteLibModule,
     CommonModule ,
+    NgxPaginationModule
+    
     
   ],
   providers: [],
