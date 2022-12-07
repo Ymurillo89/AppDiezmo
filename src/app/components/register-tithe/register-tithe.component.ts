@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { GetBrother } from 'src/app/models/interfaces';
+import { GetBrother, GetTithe } from 'src/app/models/interfaces';
 import { AlertService } from 'src/app/services/alert.service';
 import { RegisterTitheService } from 'src/app/services/register-tithe.service';
 
@@ -15,7 +15,9 @@ export class RegisterTitheComponent implements OnInit {
   formNewBrother: FormGroup;
   formNewTithe:FormGroup;
 
+  brotherDelete:number=0;
   dataBrother:GetBrother[]=[];
+  dataTithe:GetTithe[]=[];
   keyword='fullName';
 
  
@@ -31,13 +33,13 @@ export class RegisterTitheComponent implements OnInit {
     }),
     this.formNewTithe = new FormGroup({
       idRows:new FormControl("",[Validators.required]),
-      Quantity:new FormControl("",[Validators.required]),     
-
+      quantity:new FormControl("",[Validators.required])
     })
    }
 
   ngOnInit(): void {
-    this.getBrother()
+    this.getBrother();
+    this.getTithe();
 
   }
 
@@ -46,6 +48,13 @@ export class RegisterTitheComponent implements OnInit {
     this.registerBrotherService.getBrother().subscribe(response=>{
       this.dataBrother = response;
       //console.log(this.dataBrother)
+    })
+  }
+
+  getTithe(){
+    this.registerBrotherService.getTithe().subscribe(response=>{
+      this.dataTithe = response;
+      console.log(this.dataTithe)
     })
   }
 
@@ -86,10 +95,40 @@ export class RegisterTitheComponent implements OnInit {
   //Guardamos la información del Diezmo
   setTithe(){
 
+    let idRow = this.formNewTithe.controls['idRows'].value;
+    let quantity =this.formNewTithe.controls['quantity'].value;
+    
     if(this.formNewTithe.valid){      
-      
-    }
+      this.registerBrotherService.setTithe(idRow,quantity).subscribe(response=>{
+        if(response==1){
+          this.alert.ShowSwalBasicSuccess("Éxito","Registro realizado correctamente") 
+          this.formNewTithe.reset();
+        }else{
+          this.alert.ShowSwalBasicError("Error al guardar","No se ha podido guardar la información")       
+        }
+      })
+    }    
+  }
 
+  //Seleccionamos el hermano a eliminar
+  selectBrotherDelete(event:GetBrother){   
+    this.brotherDelete=event.idRows;    
+  }
+
+  //Eliminar hermano
+  dropBrother(){
+
+    if(this.brotherDelete != 0){
+      this.registerBrotherService.deleteBrother(this.brotherDelete).subscribe(response=>{
+        if(response==1){
+          this.alert.ShowSwalBasicSuccess("Éxito","Eliminado") 
+          this.brotherDelete = 0
+          this.getBrother();
+        }else{
+          this.alert.ShowSwalBasicError("Error al guardar","No se ha podido eliminar la información")       
+        }
+      })
+    }
     
   }
 }
