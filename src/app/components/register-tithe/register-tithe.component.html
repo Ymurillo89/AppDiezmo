@@ -142,8 +142,11 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-center">Diezmos</h2>
+        <div>
+          <input class="form-control mt-2 mb-2"  placeholder="Filtro de busqueda..." (keyup)="filterTable($event.target)">
+        </div>
         <div class="accordion accordion-flush" id="accordionFlushExample" >
-          <div class="accordion-item" *ngFor="let brother of dataTithe  let i = index">
+          <div class="accordion-item" *ngFor="let brother of dataTithe    let i = index">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
                 class="accordion-button collapsed "
@@ -162,7 +165,7 @@
                 <div class="alert alert-warning" role="alert" *ngIf="brother.getTitheLin.length == 0">
                  No se han realizado registros
                 </div>
-                <div class="table-responsive" *ngIf="brother.getTitheLin.length > 0">
+                <div class="table-responsive" *ngIf="brother.getTitheLin.length > 0">                 
                   <table class="table table-striped">
                     <thead class=" text-center"   style="background-color: #e3b04b; color: white">
                       <tr>

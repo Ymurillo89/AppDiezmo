@@ -20,6 +20,7 @@ export class RegisterTitheComponent implements OnInit {
   dataTithe:GetTithe[]=[];
   keyword='fullName';
   f=0;
+  filtro=""
 
  
   constructor(private registerBrotherService :RegisterTitheService,
@@ -132,6 +133,14 @@ export class RegisterTitheComponent implements OnInit {
         }
       })
     }
+    
+  }
+
+  //Filtro de tabla
+  filterTable(name:any){
+    debugger
+    this.dataTithe=this.dataTithe.filter(e=>e.fullName == name.value )
+      
     
   }
 }
