@@ -1,5 +1,60 @@
-<div class="container">   
+<div class="row mt-2">
+  <div class="col-12">
+    <div class="card">
+        <h2 class="border rounded text-white text-center p-1" style="background-color: #e3b04b; color: white">Filtros</h2>
+      <div class="card-body">        
+        
+        <div class="row" >
+          <!--Autocomplete-->
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="text-center">
+              <label>Seleccione una tienda</label>
+            </div>
 
+            <div class="ng-autocomplete  mt-2" style="width: 100%;">
+             <!--  <ng-autocomplete
+                formControlName="nameStore"
+                [data]="dataStore"
+                [searchKeyword]="keyword"
+                placeholder="Filtro de búsqueda"
+                (selected)="selectEvent($event)"
+                (inputCleared)="clearSelected()"
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [(ngModel)]="term"                
+              >
+              </ng-autocomplete> -->
+
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.storeName"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div> 
+          </div>          
+
+          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="text-center">
+                <label>Fecha Inicial</label>
+              </div>
+              <input type="date" class="form-control mt-2" formControlName="dateStart" >
+          </div>     
+       
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">   
+  <select name="" id="">
+    <option *ngFor="let item of dataPeriod" value="{{ item.period }}">{{ item.description }}</option>
+  </select>
     <table class="table align-middle mb-0 bg-white mt-2">
         <thead class="bg-light">
           <tr>
