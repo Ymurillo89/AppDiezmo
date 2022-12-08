@@ -18,9 +18,10 @@ export class RegisterTitheComponent implements OnInit {
   brotherDelete:number=0;
   dataBrother:GetBrother[]=[];
   dataTithe:GetTithe[]=[];
+  dataFilterTithe:GetTithe[]=[];
   keyword='fullName';
-  f=0;
-  filtro=""
+  f=0;  
+  f2=0;  
 
  
   constructor(private registerBrotherService :RegisterTitheService,
@@ -42,7 +43,6 @@ export class RegisterTitheComponent implements OnInit {
   ngOnInit(): void {
     this.getBrother();
     this.getTithe();
-
   }
 
   //Traer información del hermano
@@ -56,6 +56,7 @@ export class RegisterTitheComponent implements OnInit {
   getTithe(){
     this.registerBrotherService.getTithe().subscribe(response=>{
       this.dataTithe = response;
+      this.dataFilterTithe = response;
       console.log(this.dataTithe)
     })
   }
@@ -135,12 +136,36 @@ export class RegisterTitheComponent implements OnInit {
     }
     
   }
+  selectFilterBrother(event:GetBrother){
+    this.dataFilterTithe=this.dataFilterTithe.filter(e=>e.fullName == event.fullName )  ;
+  }
 
-  //Filtro de tabla
-  filterTable(name:any){
-    debugger
-    this.dataTithe=this.dataTithe.filter(e=>e.fullName == name.value )
+  resetFilter(){
+    this.dataFilterTithe = this.dataTithe;
+  }
+
+  
+
+  //Suma del Diezmo
+  sumTitthe(idRow:number){
+    let sum=0;
+    let dataLin:any=[];
+
+    this.dataTithe.forEach(e=>{
       
+      e.getTitheLin.forEach(r=>{
+        if(e.idRows == idRow){
+          sum+= r.tithe
+          r.sumTithe = sum
+        }
+               
+      })      
+    })
+    
+    //console.log(dataLin)
+
+
+    return sum
     
   }
 }

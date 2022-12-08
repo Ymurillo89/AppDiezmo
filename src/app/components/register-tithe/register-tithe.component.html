@@ -13,6 +13,7 @@
     </div>
 </div> -->
 
+<!--DIEZMOS-->
 <div class="row mt-3">
   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mt-2">
     <div class="card">
@@ -142,11 +143,29 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-center">Diezmos</h2>
-        <div>
-          <input class="form-control mt-2 mb-2"  placeholder="Filtro de busqueda..." (keyup)="filterTable($event.target)">
+        <div class="text-center mb-2">
+          <label >Nombre</label>
+          <ng-autocomplete 
+            [data]="dataBrother"
+            [searchKeyword]="keyword"
+            placeholder="Filtro de busqueda por hermano"
+            (selected)='selectFilterBrother($event)'
+            (inputCleared)="resetFilter()"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">      
+                                   
+          </ng-autocomplete>
+          
+          <ng-template #itemTemplate let-dataBrother>
+          <a [innerHTML]="dataBrother.fullName"></a>
+          </ng-template>
+          
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
         </div>
         <div class="accordion accordion-flush" id="accordionFlushExample" >
-          <div class="accordion-item" *ngFor="let brother of dataTithe    let i = index">
+          <div class="accordion-item" *ngFor="let brother of dataFilterTithe| paginate: { itemsPerPage: 4, currentPage: f2, id: 'f2' };    let i = index">
             <h2 class="accordion-header" id="flush-headingOne">
               <button
                 class="accordion-button collapsed "
@@ -175,12 +194,12 @@
                     </thead>
                     <tbody class="text-center ">
                       <tr *ngFor="let dataBrother of brother.getTitheLin | paginate: { itemsPerPage: 6, currentPage: f, id: 'f1' }; let j= index">                       
-                        <td>{{dataBrother.tithe}}</td>
+                        <td>{{dataBrother.tithe | currency}}</td>
                         <td>{{dataBrother.dateTithe}}</td>
                       </tr>
                     </tbody>
                     <footer>
-                      <p><strong>Sum:0</strong></p>
+                      <p><strong>Total:</strong>{{sumTitthe(brother.idRows) | currency}}</p>
                     </footer>
                   </table>
                   <div class="text-right">
@@ -188,11 +207,17 @@
                     </pagination-controls>
                   </div> 
                 </div>
-
+                
               </div>
+              
             </div>
           </div>
+
         </div>
+        <div class="text-right mt-2">
+          <pagination-controls previousLabel="" nextLabel="" (pageChange)="f2 = $event" id="f2">
+          </pagination-controls>
+        </div> 
       </div>
     </div>
   </div>

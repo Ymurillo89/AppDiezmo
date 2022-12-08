@@ -13,4 +13,5 @@ export interface GetTithe {
 export  interface GetTitheLin {
     tithe: number;
     dateTithe: string;
+    sumTithe?:number;
 }
