@@ -15,3 +15,9 @@ export  interface GetTitheLin {
     dateTithe: string;
     sumTithe?:number;
 }
+
+export interface GetReport {
+    fullName: string;
+    tithe: number;
+    dateTithe: string;
+  }

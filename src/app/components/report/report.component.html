@@ -1,49 +1,53 @@
-<div class="row mt-2">
-  <div class="col-12">
-    <div class="card">
+<div class="container">
+  <div class=" row mt-2">
+    <div class="col-12">
+      <div class="card">
+          
         <h2 class="border rounded text-white text-center p-1" style="background-color: #e3b04b; color: white">Filtros</h2>
-      <div class="card-body">        
-        
-        <div class="row" >
-          <!--Autocomplete-->
-          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="text-center">
-              <label>Seleccione una tienda</label>
-            </div>
-
-            <div class="ng-autocomplete  mt-2" style="width: 100%;">
-             <!--  <ng-autocomplete
-                formControlName="nameStore"
-                [data]="dataStore"
+  
+        <div class="card-body">        
+          
+          <div class="row" >
+            <!--Autocomplete-->
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">          
+  
+              <div class="ng-autocomplete " style="width: 100%;">           
+                <div class="text-center">
+                  <label>Nombre</label>
+                </div>  
+              <ng-autocomplete 
+                [data]="dataBrother"
                 [searchKeyword]="keyword"
-                placeholder="Filtro de búsqueda"
-                (selected)="selectEvent($event)"
-                (inputCleared)="clearSelected()"
+                placeholder="Filtro de busqueda por hermano"
+                (selected)='selectFilterBrother($event)'
+                (inputCleared)="resetFilter()"
                 [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate"
-                [(ngModel)]="term"                
-              >
-              </ng-autocomplete> -->
-
-              <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item.storeName"></a>
+                [notFoundTemplate]="notFoundTemplate">      
+                                      
+              </ng-autocomplete>
+              
+              <ng-template #itemTemplate let-dataBrother>
+              <a [innerHTML]="dataBrother.fullName"></a>
               </ng-template>
-
+              
               <ng-template #notFoundTemplate let-notFound>
-                <div [innerHTML]="notFound"></div>
+              <div [innerHTML]="notFound"></div>
               </ng-template>
-            </div> 
-          </div>          
-
-          <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="text-center">
-                <label>Fecha Inicial</label>
-              </div>
-              <input type="date" class="form-control mt-2" formControlName="dateStart" >
-          </div>     
-       
+              </div> 
+            </div>          
+  
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-2">
+              <div class="text-center">
+                  <label>Seleccione un periodo</label>
+                </div>
+                <select class="form-control" name="" id="" (change)="getReport($event.target)">
+                  <option  *ngFor="let item of dataPeriod" value="{{ item.period }}">{{ item.description }}</option>
+                </select>
+            </div>     
+         
+          </div>
+  
         </div>
-
       </div>
     </div>
   </div>
@@ -51,42 +55,43 @@
 
 
 
-<div class="container">   
-  <select name="" id="">
-    <option *ngFor="let item of dataPeriod" value="{{ item.period }}">{{ item.description }}</option>
-  </select>
-    <table class="table align-middle mb-0 bg-white mt-2">
-        <thead class="bg-light">
-          <tr>
-            <th>Hermano</th>
-            <th>Diezmo</th>
-            <th>Fecha</th>          
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                    />
-                <div class="ms-3">
-                  <p class="fw-bold mb-1">John Doe</p>
-                  <p class="text-muted mb-0">john.doe@gmail.com</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p class="fw-normal mb-1">Software engineer</p>
-              <p class="text-muted mb-0">IT department</p>
-            </td>
-         
-          </tr>
-        
-        
-        </tbody>
-      </table>
+<div class="container mt-2">   
+  <div class="card">
+    <div class="card-body">
+      <div class="alert alert-warning" role="alert" *ngIf="dataFilterReport.length==0">
+        No se encuentran registros en el periodo seleccionado
+      </div>
+        <div class="table-responsive" *ngIf="dataFilterReport.length>0">
+          <button class="btn btn-success m-3" style="border-radius: 50%" (click)="generateExcel()"><i class="fas fa-file-excel"></i></button>
+          <table class="table table-striped">
+            <thead class=" text-center"   style="background-color: #e3b04b; color: white">
+              <tr>
+                <th>Hermano</th>
+                <th>Diezmo</th>
+                <th>Fecha</th>                          
+              </tr>
+            </thead>
+            <tbody class="text-center bg-light">
+              <tr *ngFor="let report of dataFilterReport | paginate: { itemsPerPage: 10, currentPage: f, id: 'f1' }; let j= index">
+                <td>
+                  {{report.fullName}}
+                </td>
+                <td>
+                  {{report.tithe |currency}}
+                </td>
+                <td>
+                  {{report.dateTithe}}
+                </td>         
+              </tr>      
+            
+            </tbody>        
+          </table>
+          <div class="text-right">
+            <pagination-controls previousLabel="" nextLabel="" (pageChange)="f = $event" id="f1">
+            </pagination-controls>
+          </div>       
+        </div>
+    </div>
+  </div>
+  
 </div>

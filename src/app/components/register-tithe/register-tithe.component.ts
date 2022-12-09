@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GetBrother, GetTithe } from 'src/app/models/interfaces';
 import { AlertService } from 'src/app/services/alert.service';
 import { RegisterTitheService } from 'src/app/services/register-tithe.service';
@@ -25,7 +26,8 @@ export class RegisterTitheComponent implements OnInit {
 
  
   constructor(private registerBrotherService :RegisterTitheService,
-              private alert:AlertService
+              private alert:AlertService,
+              private router: Router,
     
     ) {
     this.formNewBrother = new FormGroup({
@@ -41,8 +43,17 @@ export class RegisterTitheComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getBrother();
-    this.getTithe();
+    
+    let username=localStorage.getItem("userName")
+    if(username== "" || username== null || username== undefined){
+      this.router.navigate(['login'])
+    }else{
+      
+      this.getBrother();
+      this.getTithe();
+    }
+    
+    
   }
 
   //Traer información del hermano
@@ -57,7 +68,7 @@ export class RegisterTitheComponent implements OnInit {
     this.registerBrotherService.getTithe().subscribe(response=>{
       this.dataTithe = response;
       this.dataFilterTithe = response;
-      console.log(this.dataTithe)
+      //console.log(this.dataTithe)
     })
   }
 

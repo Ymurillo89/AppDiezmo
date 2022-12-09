@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(user, password).subscribe(response=>{
         if(response == 1){
           localStorage.setItem("userName",user)
-          localStorage.setItem("password","si")
+          //localStorage.setItem("password","si")
           this.router.navigate(['nav/home'])
 
         }else{
