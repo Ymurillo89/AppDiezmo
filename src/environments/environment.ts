@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url:" http://apitithe.somee.com/api/"
+  url:" https://bsite.net/andresmu/api/"
  
 };
 

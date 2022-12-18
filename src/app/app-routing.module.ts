@@ -7,12 +7,13 @@ import { RegisterTitheComponent } from './components/register-tithe/register-tit
 import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [{path: '',component:LoginComponent},
-  { path: 'nav',component: NavComponent, children:[{path:'Diezmo',component:RegisterTitheComponent},{path:'Reporte',component:ReportComponent},{path:'home',component:HomeComponent}],},
-  { path:'login',component:LoginComponent} 
+{ path: 'nav',component: NavComponent, children:[{path:'Diezmo',component:RegisterTitheComponent},{path:'Reporte',component:ReportComponent},{path:'home',component:HomeComponent}],},
+{ path:'login',component:LoginComponent} 
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
