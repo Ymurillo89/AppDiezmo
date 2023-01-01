@@ -13,7 +13,7 @@ export class PeriodService {
       "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
     ];
 
-    for (let index = 2022; index <= date.getFullYear(); index++) {
+    for (let index = 2023; index <= date.getFullYear(); index++) {
       for (let indexMonth = 1; indexMonth <= 12; indexMonth++) {
         dataPeriod.push({ period: `${index}${(indexMonth <= 9 ? '0'+indexMonth  : indexMonth)}`, description: `${index}${(indexMonth <= 9 ? '0'+indexMonth  : indexMonth)} - ${monthNames[indexMonth-1]}` });
       }

@@ -32,6 +32,9 @@ export class RegisterTitheService {
     
   }
 
+  deleteTithe(id:number){
+    return this.http.delete(environment.url+`RegisterTitheCntlr/DeleteTithe/${id}`)
+  }
 
 
 }

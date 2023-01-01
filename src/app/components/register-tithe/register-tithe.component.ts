@@ -140,6 +140,7 @@ export class RegisterTitheComponent implements OnInit {
           this.alert.ShowSwalBasicSuccess("Éxito","Eliminado") 
           this.brotherDelete = 0
           this.getBrother();
+          this.getTithe();
         }else{
           this.alert.ShowSwalBasicError("Error al guardar","No se ha podido eliminar la información")       
         }
@@ -178,5 +179,20 @@ export class RegisterTitheComponent implements OnInit {
 
     return sum
     
+  }
+
+
+  //Eliminamos el diezmo seleccionado
+  deleteTithe(idRow:number){
+    
+    this.registerBrotherService.deleteTithe(idRow).subscribe(response=>{
+      if(response==1){
+        this.alert.ShowSwalBasicSuccess("Éxito","Diezmo eliminado")
+        this.getTithe();
+      
+      }else{
+        this.alert.ShowSwalBasicError("Error","No se pudo eliminar el diezmo")
+      }
+    })
   }
 }

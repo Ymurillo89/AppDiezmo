@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url:" https://bsite.net/andresmu/api/"
+   url:" https://bsite.net/andresmu/api/" 
+  /* url:"https://localhost:7060/api/" */
  
 };
 
